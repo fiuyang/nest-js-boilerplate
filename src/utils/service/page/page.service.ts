@@ -17,12 +17,16 @@ export class PageService {
     opt.take = data.limit;
     const result = await repo.find(opt);
     const pages = Math.ceil(total / data.limit);
-    const finalData = {
-      total: total,
-      page: data.page,
-      pages: pages,
-      data: result,
+  
+    return {
+      result: result,
+      meta: {
+          limit: limit,
+          page: page,
+          totalData: total,
+          totalPage: pages
+      }
     };
-    return finalData;
   }
 }
+

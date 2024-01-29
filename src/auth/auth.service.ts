@@ -10,17 +10,18 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
+  
   async login(loginDto: LoginDto):Promise<any>{
     const user = await this.userService.findByEmail(loginDto.email);
 
     if(!user){
-      throw new NotFoundException('user not found')
+      throw new NotFoundException('User Not Found')
     }
 
     const validatePassword = this.userService.compare(loginDto.password, user.password);
 
     if(!validatePassword){
-      throw new NotFoundException('Invalid password')
+      throw new NotFoundException('Email or Password Wrong')
     }
 
     return {

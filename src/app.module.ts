@@ -9,11 +9,13 @@ import { ExistValidator } from './utils/validator/exist-validator';
 import { UniqueValidator } from './utils/validator/unique-validator';
 import { PageService } from './utils/service/page/page.service';
 import { ProductModule } from './product/product.module';
-import { HelperModule } from './helper/helper.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -28,7 +30,7 @@ import { HelperModule } from './helper/helper.module';
  
     AuthModule, 
     UserModule, 
-    ProductModule,
+    ProductModule, MailModule,
     // HelperModule, 
   ],
   controllers: [AppController],
